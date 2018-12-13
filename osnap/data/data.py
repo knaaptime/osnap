@@ -376,7 +376,6 @@ class Dataset(object):
             self.states = _convert_gdf(self.states)
         # If county and state lists are passed, use them to filter based on geoid
         else:
-            assert statefips
             statelist = []
             if isinstance(statefips, (list, )):
                 statelist.extend(statefips)
@@ -410,7 +409,7 @@ class Dataset(object):
                 _df = pd.read_parquet(
                     os.path.join(_package_directory, "ltdb.parquet.gzip"))
             except OSError:
-                print(
+                warn(
                     "Unable to locate LTDB data. Please import the database with the `read_ltdb` function"
                 )
         elif source == "ncdb":
@@ -418,7 +417,7 @@ class Dataset(object):
                 _df = pd.read_parquet(
                     os.path.join(_package_directory, "ncdb.parquet.gzip"))
             except OSError:
-                print(
+                warn(
                     "Unable to locate NCDB data. Please import the database with the `read_ncdb` function"
                 )
         elif source == "external":
