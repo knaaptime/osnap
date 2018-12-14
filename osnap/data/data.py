@@ -439,6 +439,7 @@ class Dataset(object):
              year=2010,
              ax=None,
              plot_counties=True,
+             title=None,
              **kwargs):
         """
         convenience function for plotting tracts in the metro area
@@ -450,8 +451,11 @@ class Dataset(object):
             fig, ax = plt.subplots(figsize=(15, 15))
             colname = column.replace("_", " ")
             colname = colname.title()
-            plt.title(
-                self.name + ": " + colname + ", " + str(year), fontsize=20)
+            if title:
+                plt.title(title)
+            else:
+                plt.title(
+                    self.name + ": " + colname + ", " + str(year), fontsize=20)
             plt.axis("off")
 
         ax.set_aspect("equal")
@@ -460,15 +464,11 @@ class Dataset(object):
             left_on="geoid",
             right_index=True)
         plotme = plotme.dropna(subset=[column])
-        plotme.plot(column=column, alpha=0.8, ax=ax, **kwargs)
+        plotme.plot(column=column, alpha=0.8, ax=ax)
 
         if plot_counties is True:
             self.counties.plot(
-                edgecolor="#5c5353",
-                linewidth=0.8,
-                facecolor="none",
-                ax=ax,
-                **kwargs)
+                edgecolor="#5c5353", linewidth=0.8, facecolor="none", ax=ax)
 
         return ax
 
