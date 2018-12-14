@@ -323,7 +323,7 @@ class Dataset(object):
         list of additional indices that should be included in the region. This is likely a list of additional tracts that are relevant to the study area but do not fall inside the passed boundary
     boundary : GeoDataFrame
         A GeoDataFrame that defines the extent of the boundary in question.
-         If a boundary is passed, it will be used to clip the tracts or blocks that fall within it and the 
+         If a boundary is passed, it will be used to clip the tracts or blocks that fall within it and the
          state and county lists will be ignored
 
     Attributes
@@ -464,7 +464,7 @@ class Dataset(object):
             left_on="geoid",
             right_index=True)
         plotme = plotme.dropna(subset=[column])
-        plotme.plot(column=column, alpha=0.8, ax=ax)
+        plotme.plot(column=column, alpha=0.8, ax=ax, **kwargs)
 
         if plot_counties is True:
             self.counties.plot(
