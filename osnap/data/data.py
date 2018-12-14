@@ -452,7 +452,7 @@ class Dataset(object):
             colname = column.replace("_", " ")
             colname = colname.title()
             if title:
-                plt.title(title)
+                plt.title(title, fontsize=20)
             else:
                 plt.title(
                     self.name + ": " + colname + ", " + str(year), fontsize=20)
