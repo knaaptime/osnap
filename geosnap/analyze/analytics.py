@@ -10,7 +10,6 @@ from .cluster import (
     azp,
     affinity_propagation,
     gaussian_mixture,
-    hdbscan,
     kmeans,
     max_p,
     skater,

@@ -1,7 +1,6 @@
 from warnings import warn
 
 import numpy as np
-from hdbscan import HDBSCAN
 from region.max_p_regions.heuristics import MaxPRegionsHeu
 from region.p_regions.azp import AZP
 from region.skater.skater import Spanning_Forest
@@ -290,29 +289,29 @@ you should set the `random_state` parameter")
     return model
 
 
-def hdbscan(X, min_cluster_size=5, gen_min_span_tree=True, **kwargs):
-    """Clustering with Hierarchical DBSCAN
-
-    Parameters
-    ----------
-    X : array-like
-         n x k attribute data
-
-    min_cluster_size : int, default: 5
-        the minimum number of points necessary to generate a cluster
-
-    gen_min_span_tree : bool
-        Description of parameter `gen_min_span_tree` (the default is True).
-
-    Returns
-    -------
-    model: hdbscan HDBSCAN instance
-
-    """
-
-    model = HDBSCAN(min_cluster_size=min_cluster_size)
-    model.fit(X)
-    return model
+# def hdbscan(X, min_cluster_size=5, gen_min_span_tree=True, **kwargs):
+#     """Clustering with Hierarchical DBSCAN
+# 
+#     Parameters
+#     ----------
+#     X : array-like
+#          n x k attribute data
+# 
+#     min_cluster_size : int, default: 5
+#         the minimum number of points necessary to generate a cluster
+# 
+#     gen_min_span_tree : bool
+#         Description of parameter `gen_min_span_tree` (the default is True).
+# 
+#     Returns
+#     -------
+#     model: hdbscan HDBSCAN instance
+# 
+#     """
+# 
+#     model = HDBSCAN(min_cluster_size=min_cluster_size)
+#     model.fit(X)
+#     return model
 
 
 # Spatially Explicit/Encouraged Methods
