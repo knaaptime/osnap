@@ -12,7 +12,7 @@ with open("README.md") as file:
 MAJOR = 0
 MINOR = 1
 MICRO = 0
-ISRELEASED = False
+ISRELEASED = True
 VERSION = "%d.%d.%d" % (MAJOR, MINOR, MICRO)
 
 # BEFORE importing distutils, remove MANIFEST. distutils doesn't properly
@@ -43,10 +43,6 @@ def setup_package():
 
     reqs = _get_requirements_from_files(_groups_files)
     install_reqs = reqs.pop("base")
-    del install_reqs[-1]  # workaround for region
-    install_reqs.append("region")
-    print(install_reqs)
-    extras_reqs = reqs
 
     setup(
         name="geosnap",
@@ -77,10 +73,9 @@ def setup_package():
             "Programming Language :: Python :: 3.6",
         ],
         install_requires=install_reqs,
-        extras_require=extras_reqs,
         cmdclass={"build_py": build_py},
         include_package_data=True,
-        package_data={"geosnap": ["data/variables.csv"]},
+        package_data={"geosnap": ["io/variables.csv", "io/lodes.csv", "io/stfips.csv"]},
         python_requires=">3.4",
     )
 

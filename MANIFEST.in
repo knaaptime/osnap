@@ -1,1 +1,1 @@
-include geosnap/data/variables.csv
+include geosnap/io/*.csv
