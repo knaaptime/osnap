@@ -1,10 +1,9 @@
 # coding: utf-8
 
-from setuptools import setup, find_packages
-
+import os
 from distutils.command.build_py import build_py
 
-import os
+from setuptools import find_packages, setup
 
 with open("README.md") as file:
     long_description = file.read()
@@ -52,8 +51,8 @@ def setup_package():
         long_description_content_type="text/markdown",
         maintainer="geosnap Developers",
         maintainer_email="pysal-dev@googlegroups.com",
-        url="http://geosnap.cloud",
-        # download_url='https://pypi.python.org/pypi/geosnap',
+        url="https://spatialucr.github.io/geosnap",
+        download_url="https://pypi.python.org/pypi/geosnap",
         license="BSD",
         py_modules=["geosnap"],
         packages=find_packages(),
@@ -69,8 +68,11 @@ def setup_package():
             "Topic :: Scientific/Engineering :: GIS",
             "License :: OSI Approved :: BSD License",
             "Programming Language :: Python",
+            "Programming Language :: Python :: 3",
             "Programming Language :: Python :: 3.5",
             "Programming Language :: Python :: 3.6",
+            "Programming Language :: Python :: 3.7",
+            "Programming Language :: Python :: 3.8",
         ],
         install_requires=install_reqs,
         cmdclass={"build_py": build_py},
