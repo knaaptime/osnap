@@ -31,7 +31,7 @@ ModelResults = namedtuple(
 )
 
 
-def pool_dfs(list_of_dataframes):
+def pool_dfs(list_of_dataframes, w=None, w_args=None):
     """Create a space-time dataset with associated weights matrix."""
     # create a df index
     dfs = list_of_dataframes
@@ -43,8 +43,15 @@ def pool_dfs(list_of_dataframes):
     # concatenate the dataframes
     df = gpd.GeoDataFrame(pd.concat(dfs, ignore_index=True))
 
+    if not w:
+        raise ValueError('Must supply a libpysal.weights object or use the default Queen matrix')
     # build the W
-    w = libpysal.weights.Queen.from_dataframe(df)
+    if w == 'queen':
+        w = libpysal.weights.Queen.from_dataframe(df)
+    elif w_args:
+        w = w.from_dataframe(df, **w_args)
+    else:
+        w = w.from_dataframe(df)
 
     # filter out the neighbors
     neighbors = {}
@@ -75,6 +82,7 @@ def cluster(
     scaler='std',
     pooling="fixed",
     w=False,
+    w_args=None,
     **kwargs,
 ):
     """Create a geodemographic typology by running a cluster analysis on the study area's neighborhood attributes.
@@ -181,7 +189,7 @@ def cluster(
             d[columns] = data[columns]
             d = d.reset_index()
             dfs = [d[d.year == time] for time in times]
-            data, w = pool_dfs(dfs)
+            data, w = pool_dfs(dfs, w=w)
             data = data.set_index([time_var, id_var])[columns]
             w = W(w)
 
@@ -221,6 +229,7 @@ def cluster(
                 n_clusters=n_clusters,
                 best_model=best_model,
                 verbose=verbose,
+                w=w,
                 **kwargs,
             )
 
@@ -235,7 +244,7 @@ def cluster(
                 columns=columns,
                 labels=model.labels_,
                 instance=model,
-                W=None
+                W=w
             )
             models[time] = results
 
