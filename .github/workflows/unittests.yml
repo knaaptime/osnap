@@ -73,6 +73,7 @@
          run: pip install -e . --no-deps --force-reinstall
        - shell: cmd /C call {0}
          run: |
+           conda activate test
            set DLPATH=%cd%
            python geosnap/tests/get_data.py
            python -m pytest -v geosnap --cov=geosnap --cov-report=xml
