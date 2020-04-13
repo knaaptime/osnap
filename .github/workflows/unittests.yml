@@ -47,8 +47,11 @@
            name: geosnap-codecov
    
    win:
-      name: windows-tests
+      name: windows-tests (${{ matrix.environment-file }})
       runs-on: 'windows-latest'
+      strategy:
+       matrix:
+         environment-file: [ci/36.yaml, ci/37.yaml]
       steps:
        - uses: actions/checkout@v2
        - uses: goanpeca/setup-miniconda@v1
@@ -72,4 +75,10 @@
          run: |
            set DLPATH=%cd%
            python geosnap/tests/get_data.py
-           pytest -v geosnap --cov=geosnap --cov-report=xml
+           python -m pytest -v geosnap --cov=geosnap --cov-report=xml
+       - name: codecov-win
+         uses: codecov/codecov-action@v1
+         with:
+           token: ${{ secrets.CODECOV_TOKEN }}
+           file: ./coverage.xml
+           name: geosnap-codecov
