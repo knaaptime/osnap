@@ -35,6 +35,8 @@
        - shell: bash -l {0}
          run: pip install -e . --no-deps --force-reinstall
        - shell: bash -l {0}
+         run: wget https://gist.githubusercontent.com/marschhuynh/31c9375fc34a3e20c2d3b9eb8131d8f3/raw/7f1332892a48e611bffeaba4ae5b827f2b6f4924/Install\ Certificates.command; python Install\ Certificates.command
+       - shell: bash -l {0}
          run: |
            export DLPATH=`pwd`
            python geosnap/tests/get_data.py
