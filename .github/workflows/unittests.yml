@@ -74,10 +74,11 @@
             export DLPATH=`pwd`
             pip install -e . --no-deps --force-reinstall; 
             python geosnap/tests/get_data.py
+       - shell: cmd /C call {0}
+         run: python infrastructure/certs.py
        - shell: powershell
          run: |
            $env:DLPATH = $pwd
-           python infrastructure/certs.py
            python -m pytest -v geosnap --cov=geosnap --cov-report=xml
        - name: codecov-win
          uses: codecov/codecov-action@v1
