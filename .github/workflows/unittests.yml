@@ -70,7 +70,10 @@
        - shell: bash -l {0}
          run: conda config --show
        - shell: bash -l {0}
-         run: pip install -e . --no-deps --force-reinstall; python geosnap/tests/get_data.py
+         run: |
+            export DLPATH=`pwd`
+            pip install -e . --no-deps --force-reinstall; 
+            python geosnap/tests/get_data.py
        - shell: powershell
          run: |
            $env:DLPATH = $pwd
