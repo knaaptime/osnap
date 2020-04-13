@@ -13,7 +13,7 @@
      timeout-minutes: 15
      strategy:
        matrix:
-         os: ['macos-latest', 'ubuntu-latest', 'windows-latest']
+         os: ['macos-latest', 'ubuntu-latest']
          environment-file: [ci/36.yaml, ci/37.yaml]
      steps:
        - uses: actions/checkout@v2
@@ -35,8 +35,6 @@
        - shell: bash -l {0}
          run: pip install -e . --no-deps --force-reinstall
        - shell: bash -l {0}
-         run: python infrastructure/certs.py
-       - shell: bash -l {0}
          run: |
            export DLPATH=`pwd`
            python geosnap/tests/get_data.py
@@ -47,3 +45,31 @@
            token: ${{ secrets.CODECOV_TOKEN }}
            file: ./coverage.xml
            name: geosnap-codecov
+   
+   win:
+      name: windows-tests
+      runs-on: 'windows-latest'
+      steps:
+       - uses: actions/checkout@v2
+       - uses: goanpeca/setup-miniconda@v1
+         with:
+            miniconda-version: 'latest'
+            auto-update-conda: true
+            auto-activate-base: false
+            environment-file: ${{ matrix.environment-file }}
+            activate-environment: test
+       - shell: bash -l {0}
+         run: conda info --all
+       - shell: bash -l {0}
+         run: conda list
+       - shell: bash -l {0}
+         run: conda config --show-sources
+       - shell: bash -l {0}
+         run: conda config --show
+       - shell: bash -l {0}
+         run: pip install -e . --no-deps --force-reinstall
+       - shell: cmd /C call {0}
+         run: |
+           set DLPATH=%cd%
+           python geosnap/tests/get_data.py
+           py.test -v geosnap --cov=geosnap --cov-report=xml
