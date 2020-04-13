@@ -73,7 +73,7 @@
          run: pip install -e . --no-deps --force-reinstall
        - shell: powershell
          run: |
-           $env:DLPATH = %cd%
+           $env:DLPATH = $pwd
            python geosnap/tests/get_data.py
            python -m pytest -v geosnap --cov=geosnap --cov-report=xml
        - name: codecov-win
