@@ -72,4 +72,4 @@
          run: |
            set DLPATH=%cd%
            python geosnap/tests/get_data.py
-           py.test -v geosnap --cov=geosnap --cov-report=xml
+           pytest -v geosnap --cov=geosnap --cov-report=xml
