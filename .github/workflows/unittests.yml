@@ -71,10 +71,9 @@
          run: conda config --show
        - shell: bash -l {0}
          run: pip install -e . --no-deps --force-reinstall
-       - shell: cmd /C call {0}
+       - shell: powershell
          run: |
-           conda activate test
-           set DLPATH=%cd%
+           $env:DLPATH = %cd%
            python geosnap/tests/get_data.py
            python -m pytest -v geosnap --cov=geosnap --cov-report=xml
        - name: codecov-win
