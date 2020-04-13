@@ -44,7 +44,7 @@ def get_lehd(dataset="wac", state="dc", year=2015):
     renamer = dict(zip(lodes_vars["variable"].tolist(), lodes_vars["name"].tolist()))
 
     state = state.lower()
-    url = "https://lehd.ces.census.gov/data/lodes/LODES7/{state}/{dataset}/{state}_{dataset}_S000_JT00_{year}.csv.gz".format(
+    url = "http://lehd.ces.census.gov/data/lodes/LODES7/{state}/{dataset}/{state}_{dataset}_S000_JT00_{year}.csv.gz".format(
         dataset=dataset, state=state, year=year
     )
     try:
